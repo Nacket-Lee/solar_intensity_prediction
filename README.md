@@ -4,20 +4,50 @@ This repository is used to predict the intensity of the solar irradiation
 step 1 calculate the solar height angle
 步骤一 计算太阳高度角
 
-%x是当地的地理纬度
-%y是当日的太阳赤纬
-%t是当日的太阳时角
-x=26.1.*pi./180;
+clear;
+[numsun,txtsun,rawsun] = xlsread('train（南非约翰内斯堡日照强度数据） - 副本.xlsx');
+sun=numsun;
+sun(:,1)=[];
+n=0:1460;
+sunny=cell2mat(arrayfun(@(n) sun((8+24*n):(18+24*n),1),0:1460,'un',0))';
+suu=sunny';
+su=(suu(:));
+zero_index=find((su)==0) ;
+reg = mod(zero_index,11); 
+%排除数据中突然出现的零点
 
-n=1:366;
-
-b=2.*pi.*(n-1)./366;
-y=0.006918-0.399912.*cos(b)+0.070257.*sin(b)-0.006758.*cos(2.*b)+0.000907.*sin(2.*b)-0.002697.*cos(3.*b)+0.00148.*sin(3.*b);
-
-T=0:pi/12:(23./12)*pi;
+i=find(isnan(sun));
+training=sun;
+training(:,2)=[];
+input=training(9247:9260,1);
+T=6:19;
 t=T';
+[p,S]=polyfit(t,input,9);
+y1=polyval(p,t);
+plot(t,input,'k.',t,y1,'g');
+legend('训练样本','拟合曲线'),grid;
+% xlabel(sprintf('多项式:y=%.2fx^2+%.2fx+%.2f',p(1),p(2),p(3)));
+% pretty(poly2sym(p))
+ xlabel(sprintf('多项式:%s',poly2str(p,'x')));
+title('最小二乘法的多项式拟合'); 
+sun(9271:9284,1)=y1;
+sun(9295:9308,1)=y1;
+sun(9319:9332,1)=y1;
+j=find(isnan(sun(1:9336,1)));
+sun(j,1)=0; 
+sun(9337:9348,1)=sun(9265:9276,1);
+%用拟合补足数据中出现大量空值的地方
 
-h=sin(x).*sin(y)+(cos(x).*cos(y)).*cos(t);
-H=asin(h).*180./pi;
-d=(H(:));
+b=sun(31406:31431,1);  
+times=1:length(b);
+mask=~isnan(b); 
+c=b;  
+c(~mask)=interp1(times(mask),b(mask),times(~mask));
+sun(31406:31431,1)=c;
+%用差值补足数据中出行少数空值的地方
+ 
+sun(:,1)=round(sun(:,1));
+%经过数据清洗之后的数据
+
+xlswrite('train.xlsx',sun);
 ```
