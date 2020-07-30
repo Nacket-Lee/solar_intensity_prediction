@@ -1,8 +1,9 @@
 # solar_intensity_prediction
 This repository is used to predict the intensity of the solar irradiation
-    step 1 calculate the solar height angle
-    步骤一 计算太阳高度角
 ```
+step 1 calculate the solar height angle
+步骤一 计算太阳高度角
+
 %x是当地的地理纬度
 %y是当日的太阳赤纬
 %t是当日的太阳时角
