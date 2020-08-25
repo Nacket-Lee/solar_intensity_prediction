@@ -1,7 +1,6 @@
 # solar_intensity_prediction
 This repository is used to predict the intensity of the solar irradiation
-
-'''
+```
 clear;
 sun= xlsread('train(经过数据清洗之后的训练集).xlsx');
 strength=sun(:,1);
@@ -37,4 +36,4 @@ targethigh_10min=vq2;
 %xlswrite('targethigh_10min.xlsx',targethigh_10min);
 
 %利用线性插值和光滑插值充实日照强度和太阳高度角的数据量，并作图比较
-'''
+```
