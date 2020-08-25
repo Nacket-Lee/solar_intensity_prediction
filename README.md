@@ -1,6 +1,9 @@
 # solar_intensity_prediction
 This repository is used to predict the intensity of the solar irradiation
 ```
+step 5 targetdata nocloud
+步骤5 无云日数据写入
+
 clear;
 number=xlsread('number.xlsx'); 
 number = number';
