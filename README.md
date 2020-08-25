@@ -1,6 +1,9 @@
 # solar_intensity_prediction
 This repository is used to predict the intensity of the solar irradiation
 ```
+step 4 find nocloud day
+步骤4 找出无云遮挡的某一天
+
 clear;
 sun= xlsread('train.xlsx');
 strength=sun(:,1);
