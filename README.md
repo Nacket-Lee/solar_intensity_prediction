@@ -1,6 +1,9 @@
 # solar_intensity_prediction
 This repository is used to predict the intensity of the solar irradiation
 ```
+step 3 interpolation
+步骤三 批量插值
+
 clear;
 sun= xlsread('train(经过数据清洗之后的训练集).xlsx');
 strength=sun(:,1);
